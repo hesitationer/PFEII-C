@@ -1,0 +1,11 @@
+*.pdb
+x64
+*.vcxproj
+*.vcxproj.filters
+DDTBARE/x64
+DDTBARE/Debug
+x64
+*.sdf
+*.sln
+*.suo
+*.opensdf
