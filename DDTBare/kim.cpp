@@ -38,6 +38,8 @@ int extractKimSignature(const Mat& imageBlock, int rows, int cols, vector<float>
         }
     }
 
+    bool contiguous = imageBlocksMean.isContinuous();
+
     // run DCT on mean matrix and keep
     // only 6*6 part
     Mat dctBlocks, dctBlocksSix;

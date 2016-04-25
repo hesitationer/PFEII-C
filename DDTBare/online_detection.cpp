@@ -30,7 +30,7 @@ int onlineDetection(MatrixRefCell& imageBlocks, int blockSize, vector<float>& re
     int ret = 0;
     int blockRows = imageBlocks.rows;
     int blockCols = imageBlocks.cols;
-    Mat_<double> distanceMat(blockRows, blockCols);
+    Mat_<float> distanceMat(blockRows, blockCols);
 
     // compute block signature and
     // calcul distance between ref
@@ -48,10 +48,10 @@ int onlineDetection(MatrixRefCell& imageBlocks, int blockSize, vector<float>& re
                 // compute euclididan distance
                 if (aSign.size() == refSign.size())
                 {
-                    int signDistance = 0;
+                    float signDistance = 0;
                     for (int n = 0; n < refSign.size(); ++n)
                     {
-                        signDistance += abs(refSign[i] - aSign[i]);
+                        signDistance += abs(refSign[n] - aSign[n]);
                     }
                     distanceMat(i,j) = signDistance;
                 }
@@ -68,10 +68,10 @@ int onlineDetection(MatrixRefCell& imageBlocks, int blockSize, vector<float>& re
 
     // compute alpha treshold
     Scalar distMean = mean(distanceMat);
-    Cell<double> distCell(distanceMat);
-    vector<double> distVector = distCell.getContent();
+    Cell<float> distCell(distanceMat);
+    vector<float> distVector = distCell.getContent();
 
-    float alpha = distMean.val[0] + (eta*iqr<double>(distVector));
+    float alpha = distMean.val[0] + (eta*iqr<float>(distVector));
 
     // mark defectious blocks
     for (int i = 0; i < blockRows; ++i)

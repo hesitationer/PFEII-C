@@ -39,7 +39,7 @@ int main(int argc, char** argv)
         //imshow(stringStream.str(), markedImg);
         //waitKey(1);
         ostringstream anotherStream;
-        anotherStream << "E:/jee/cours/GEN5023/code/textile_images/results/img-" << i << "-defect.tiff";
+        anotherStream << "E:/jee/cours/GEN5023/code/textile_images/results_bare/img-" << i << "-defect.tiff";
         bool success = imwrite(anotherStream.str(), markedImg);
         cout << anotherStream.str() << endl;
         printf("Success for image [%d] : %d \n", i, (int)success);
