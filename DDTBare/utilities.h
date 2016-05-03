@@ -5,6 +5,22 @@
 //***********************************************************
 // Utility classes/sctructures used to make some Matlab magic
 //***********************************************************
+//----------------------
+// DEFINES
+//----------------------
+// 10 digits Pi
+#define ddtpi 3.1415926535f
+
+// Pi/2N coeff for 2D DCT 8x8 
+#define ROW_COEF ddtpi/16.0f
+#define COL_COEF ddtpi/16.0f 
+
+// 2D DCT Matrix dims
+#define ROW_NUMBER 8
+#define COL_NUMBER 8
+// 2D DCT Matrix size (8x8)
+#define DCT_MATRIX_SIZE 64
+
 namespace utilities
 {
     //********************************
@@ -13,8 +29,14 @@ namespace utilities
     template <typename T>
     T iqr(std::vector<T>& src);
 
-    //template int iqr(std::vector<int>& src);
-    //template float iqr(std::vector<float>& src);
+    //********************************
+    // 2D DCT of a 8x8 matrix
+    //********************************
+    float computeDCTCoef(int u, int v, const cv::Mat_<float>& aMatrix);
+
+    void computeDCT2(const cv::Mat_<float>& srcMatrix, cv::Mat_<float>& dstMatrix);
+
+    float alpha(int i);
 
     //**********************************************
     // Cell class is lightweight and simple 2D 

@@ -69,7 +69,7 @@ namespace utilities {
         double firstQrtIdx = (len*0.25) - 1;
         double thirdQrtIdx = (len*0.75) - 1;
 
-        float firstQrtVal, thirdQrtVal;
+        T firstQrtVal, thirdQrtVal;
 
         // index not an integer
         if (std::floor(firstQrtIdx) != firstQrtIdx)
@@ -98,6 +98,41 @@ namespace utilities {
         // return difference between first and third qrt
         return thirdQrtVal - firstQrtVal;
     }
+
+    float alpha(int i)
+    {
+        if (i == 0)
+            return sqrt(0.125);
+        else
+            return sqrt(0.25);
+    }
+
+    float computeDCTCoef(int u, int v, const cv::Mat_<float>& aMatrix)
+    {
+        float res = alpha(u)*alpha(v);
+        float tmp = 0.0f;
+
+        for (int i = 0; i < ROW_NUMBER; ++i)
+        {
+            for (int j = 0; j < COL_NUMBER; ++j)
+            {
+                tmp += cosf(ROW_COEF*u*(2 * i + 1))*cosf(COL_COEF*v*(2 * j + 1))*aMatrix.at<float>(i,j);
+            }
+        }
+        return res*tmp;
+    }
+
+    void computeDCT2(const cv::Mat_<float>& srcMatrix, cv::Mat_<float>& dstMatrix)
+    {
+        for (int u = 0; u < ROW_NUMBER; ++u)
+        {
+            for (int v = 0; v < COL_NUMBER; ++v)
+            {
+                dstMatrix(u, v) = computeDCTCoef(u, v, srcMatrix);
+            }
+        }
+    }
+
 } // namespace utilities
 
 //******************************
@@ -110,7 +145,7 @@ template utilities::Cell < const cv::Mat >;
 template utilities::Cell < cv::Mat >;
 
 //***********************************************
-// Cook iqr function templates here
+// cook iqr function templates here
 //***********************************************
 template int utilities::iqr<int>(std::vector<int>& src);
 template float utilities::iqr<float>(std::vector<float>& src);
