@@ -45,16 +45,12 @@ int main(int argc, char** argv)
         QueryPerformanceCounter(&tEnd);
         elapsedTime = (tEnd.QuadPart - tBegin.QuadPart) * 1000.0 / frequency.QuadPart;
         printf("Elapsed time for image %d : %f\n", i, elapsedTime);
-        /*
+
         ostringstream anotherStream;
         anotherStream << "E:/jee/cours/GEN5023/code/textile_images/results_bare/img-" << i << "-defect.tiff";
         bool success = imwrite(anotherStream.str(), markedImg);
         cout << anotherStream.str() << endl;
         printf("Success for image [%d] : %d \n", i, (int)success);
-        */
     }
-    QueryPerformanceCounter(&tProcessEnd);
-    elapsedTime = (tProcessEnd.QuadPart - tProcessBegin.QuadPart) * 1000.0 / frequency.QuadPart;
-    printf("Elapsed time for process : %f\n", elapsedTime);
     return 0;
 }
